@@ -167,7 +167,7 @@ Which parts of an HTTPS request are encrypted?
 
 ![bg fit left](./imgs/http-example-answer.png)
 
-- request line (method, URL, parameters)
+- request line (method, path, parameters)
 - headers
 - body
 
