@@ -56,6 +56,8 @@ Phate
 
 ### Debugging
 
+- [Wireshark](https://www.wireshark.org/)
+
 - Ping [Pong]
 
 ```shell
@@ -139,9 +141,32 @@ HTTP/2 200
 
 ----
 
+### Question
+
+Which parts of an HTTPS request are encrypted?
+
+![bg fit left](./imgs/http-example.png)
+
+----
+
+### Answer
+
+![bg fit left](./imgs/http-example-answer.png)
+
+- request line (method, URL, parameters)
+- headers
+- body
+
+- DNS? DoH, DoT
+
+----
+
 ### References
 
 - [How to Become a Network Engineer in 2025!](https://youtu.be/0akMyLijNVg)
 - [什麼是 OSI 模型？](https://www.cloudflare.com/zh-tw/learning/ddos/glossary/open-systems-interconnection-model-osi/)
 - [OSI 七層架構和 TCP/IP 通訊協定的比較](https://hackmd.io/@Pang-Chang/BkQK8_tjF)
 - [什麼是網際網路通訊協定？](https://www.cloudflare.com/zh-tw/learning/network-layer/internet-protocol/)
+- [企業資料通訊Week4 (3) | HTTP message](https://ithelp.ithome.com.tw/articles/10282071)
+
+----
