@@ -120,6 +120,20 @@ $ ip addr
 
 ----
 
+- server bind address
+
+```shell
+Usage: uvicorn [OPTIONS] APP
+
+Options:
+  --host TEXT                     Bind socket to this host.  [default:
+                                  127.0.0.1]
+```
+
+Why 0.0.0.0?
+
+----
+
 #### HTTP Debugging
 
 - Status codes
