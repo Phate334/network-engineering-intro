@@ -23,28 +23,32 @@ Phate
 ![bg fit](./imgs/i_can_handle_no_connection.jpg)
 
 ----
+<!-- 網路要處理的就是把封包轉交的問題 source to destination -->
+<!-- 要有概念資料送出主機後被另一台主機接收中間會發生甚麼事，對於應用端的開發雖然不需要知道每一層的細節，但是除錯時會有方向 -->
 
-### OSI Model or TCP/IP Protocol
-
-- Application layer
-  - HTTP, FTP, SSH
-- Presentation or Session layer
-  - SSL, TLS (HTTPS)
-- Transport layer
-  - TCP, UDP
-- Network layer
-  - IP, ICMP
-  - Switch, Router
-- Data link layer
-  - Ethernet, PPP
-- Physical layer
-  - Cables, Hubs
-
-![bg fit left](./imgs/osi_model_7_layers.png)
+![bg fit](./imgs/internet_protocol_ip_address_diagram.png)
 
 ----
 
-![bg fit](./imgs/internet_protocol_ip_address_diagram.png)
+<!-- ISO OSI 7 layers model 較早提出但過於太繁瑣，一般比較會用 TCP/IP model 定義來處理問題 -->
+<!-- PTT 早期使用沒加密的 telnet ，目前已經改用 Websocket 和 SSH  -->
+<!-- 舉例使用手機在通訊軟體聊天室中輸入字串按下送出，使用 HTTPS 協定在 presentation layer 用公鑰加密，用 DNS 查詢 IP 後加入封包，最後用 Wifi 丟給 router 。 Router 判斷封包決定收下轉到內網或是丟給下一跳的 router ，到目的地主機假設使用有線網路，走 ethernet 收下封包，用私鑰解開，展示訊息在螢幕上。-->
+<!-- https://www.imperva.com/learn/application-security/osi-model/ -->
+
+### OSI or TCP/IP Model
+
+- Presentation or Session layer
+  - SSL, TLS (HTTPS)
+- Network layer
+  - IP, ICMP
+  - Router
+- Data link layer
+  - Ethernet, PPP
+  - Switch(or network layer?)
+- Physical layer
+  - Cables, Hubs
+
+![bg fit left](./imgs/OSI-vs.-TCPIP-models.jpg)
 
 ----
 
@@ -126,11 +130,10 @@ $ ip addr
 Usage: uvicorn [OPTIONS] APP
 
 Options:
-  --host TEXT                     Bind socket to this host.  [default:
-                                  127.0.0.1]
+  --host TEXT                     Bind socket to this host.  [default: 127.0.0.1]
 ```
 
-Why 0.0.0.0?
+Why is it always 0.0.0.0?
 
 ----
 
@@ -175,12 +178,16 @@ Which parts of an HTTPS request are encrypted?
 
 ----
 
-### References
+### Some References for Network Debugging
 
 - [How to Become a Network Engineer in 2025!](https://youtu.be/0akMyLijNVg)
 - [什麼是 OSI 模型？](https://www.cloudflare.com/zh-tw/learning/ddos/glossary/open-systems-interconnection-model-osi/)
 - [OSI 七層架構和 TCP/IP 通訊協定的比較](https://hackmd.io/@Pang-Chang/BkQK8_tjF)
 - [什麼是網際網路通訊協定？](https://www.cloudflare.com/zh-tw/learning/network-layer/internet-protocol/)
 - [企業資料通訊Week4 (3) | HTTP message](https://ithelp.ithome.com.tw/articles/10282071)
+- [人人都需要一個 HTTP proxy 來 debug](https://blog.huli.tw/2025/04/23/everyone-need-a-http-proxy-to-debug/)
 
 ----
+
+## Why Containerization?
+
