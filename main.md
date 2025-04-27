@@ -52,6 +52,12 @@ Phate
 
 ----
 
+<!-- 「拓樸」是指網路中各節點（設備）之間的連線方式，而不是特定的實體環境。 -->
+<!-- Ring 環狀拓樸例如， EXO Labs 利用 thunderbolt 把 mac mini 串聯叢集，thunderbolt 是 Intel 開發的 P2P 連線標準，所以機器之間是透過多個埠串聯成一圈。 -->
+<!-- Mesh 像如果大坪數房間，會使用多個 Wifi AP 來確保信號覆蓋提高可用性。 -->
+<!-- Star 星狀拓樸較常見，舉例來說我們開發一個應用服務容器會接上 DB 容器存資料，同時也會另外接上 Redis 容器快取。 -->
+<!-- 當要設計一個系統時，了解資料會怎麼傳遞很重要。像環狀拓樸，只要單一段連線頻寬低效就會影響整體的效能。星狀拓樸可能遇到程式有 bug 單點故障整個服務就掛掉，那要如何設計備援機制可以橫向擴充 -->
+
 ### Network topology
 
 ![bg fit left](./imgs/network-topology.png)
@@ -63,6 +69,8 @@ Phate
 - [Wireshark](https://www.wireshark.org/)
 
 - Ping [Pong]
+<!-- 使用 icmp 協定，以前被用做攻擊所以可能被防火牆過濾 -->
+<!-- 功能太簡單 -->
 
 ```shell
 $ ping -c 4 google.com
@@ -80,6 +88,9 @@ rtt min/avg/max/mdev = 9.399/11.529/12.724/1.304 ms
 ----
 
 - Traceroute
+
+<!-- 用來追蹤資料封包從本機到目標主機所經過路由節點的工具，會顯示每一跳的 IP 位址和延遲時間。 -->
+<!-- 下圖可以看到左邊一排數字代表每一跳的 hostname 和 IP 與延遲時間 -->
 
 ```shell
 $ traceroute google.com
@@ -154,7 +165,7 @@ HTTP/2 200
 ```
 
 - [HTTP Cats](https://http.cat/)
-- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status)
+- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status), [人人都需要一個 HTTP proxy 來 debug](https://blog.huli.tw/2025/04/23/everyone-need-a-http-proxy-to-debug/)
 
 ----
 
@@ -185,7 +196,6 @@ Which parts of an HTTPS request are encrypted?
 - [OSI 七層架構和 TCP/IP 通訊協定的比較](https://hackmd.io/@Pang-Chang/BkQK8_tjF)
 - [什麼是網際網路通訊協定？](https://www.cloudflare.com/zh-tw/learning/network-layer/internet-protocol/)
 - [企業資料通訊Week4 (3) | HTTP message](https://ithelp.ithome.com.tw/articles/10282071)
-- [人人都需要一個 HTTP proxy 來 debug](https://blog.huli.tw/2025/04/23/everyone-need-a-http-proxy-to-debug/)
 
 ----
 
