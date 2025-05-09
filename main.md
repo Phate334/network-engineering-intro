@@ -219,5 +219,25 @@ Which parts of an HTTPS request are encrypted?
 
 ----
 
-## Why Containerization?
+## Containerization
 
+----
+
+- What is containerization?
+
+--> OpenVZ 2005 --> Process Container 2006 --> LXC 2008 --> Docker 2013 --> OCI 2015 -->
+
+----
+<!-- https://learn.microsoft.com/zh-tw/dotnet/architecture/microservices/container-docker-introduction/docker-defined -->
+
+![bg fit](./imgs/container.png)
+
+----
+
+![bg fit](./imgs/docker.png)
+
+----
+
+## Live Demo
+
+----
