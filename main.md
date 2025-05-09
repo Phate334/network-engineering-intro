@@ -64,13 +64,15 @@ Phate
 
 ----
 
+<!-- 接著要介紹一些平常會用到的除錯工具，當服務連不上的時候會先檢查連線能力，再判斷服務有沒有正常運作 -->
+<!-- Wireshark 是非常成熟的封包嗅探工具 -->
+<!-- Ping 能提供的資訊較少，而且 icmp 協定以前有被用做攻擊，有時候可能會被管理員封鎖。 -->
+
 ### Debugging
 
 - [Wireshark](https://www.wireshark.org/)
 
 - Ping [Pong]
-<!-- 使用 icmp 協定，以前被用做攻擊所以可能被防火牆過濾 -->
-<!-- 功能太簡單 -->
 
 ```shell
 $ ping -c 4 google.com
@@ -111,7 +113,16 @@ traceroute to google.com (142.250.66.78), 30 hops max, 60 byte packets
 14  hkg12s27-in-f14.1e100.net (142.250.66.78)  27.444 ms 192.178.106.166 (192.178.106.166)  35.437 ms 209.85.243.197 (209.85.243.197)  12.452 ms
 ```
 
+- Real-world Examples
+
 ----
+
+<!-- LOOPBACK Interface 主要用來測試系統內部服務或是開發用途，不會連接實體網路傳出封包。 -->
+<!-- ethernet 介面，最常見就是乙太網路接頭 RJ45 (水晶頭)，其他可能還有光纖、同軸電纜 cable 等。機器上有多張網卡的話也會在這裡列出，有些大型伺服器或是做高頻交易會有多個備援線路 -->
+<!-- IP 會由 DHCP 或是 Static IP 指派。往下可以看到 172.27.43.151/20 是路由器分配的 IP 地址 /20 是子網路遮罩 subnet mask ，這是 CIDR 格式表示法。 -->
+<!-- IPv4 總共有 32 bits ， /20 代表前 20 bits 是網路位址，後 12 bits 是主機位址。這樣的話可以有 2^12 = 4096 - 2 = 4094 個主機。 -->
+<!-- 這邊的 -2 是因為有兩個特殊的 IP 地址，分別是default gateway 和 broadcast address 。 -->
+<!-- 實際例子，如何設定家裡新買的 Wifi AP -->
 
 - ip address
 
@@ -131,9 +142,14 @@ $ ip addr
        valid_lft forever preferred_lft forever
     inet6 fe80::215:5dff:fe64:7ac2/64 scope link
        valid_lft forever preferred_lft forever
+$ ip route
+default via 172.27.32.1 dev eth0 proto kernel
+172.27.32.0/20 dev eth0 proto kernel scope link src 172.27.43.151
 ```
 
 ----
+
+<!-- 假如有兩張網卡的話要怎麼指定？ -->
 
 - server bind address
 
@@ -164,10 +180,12 @@ $ curl -I https://www.google.com
 HTTP/2 200
 ```
 
-- [HTTP Cats](https://http.cat/)
-- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status), [人人都需要一個 HTTP proxy 來 debug](https://blog.huli.tw/2025/04/23/everyone-need-a-http-proxy-to-debug/)
+- [HTTP Cats](https://http.cat/), [HTTP Status Dogs](https://http.dog/)
+- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status), [人人都需要一個 HTTP proxy 來 debug](https://blog.huli.tw/2025/04/23/everyone-need-a-http-proxy-to-debug/), [mitmproxy](https://mitmproxy.org/)
 
 ----
+
+<!-- 如果被問到密碼放 Header 會不會不安全怎麼回答？ -->
 
 ### Question
 
@@ -177,6 +195,8 @@ Which parts of an HTTPS request are encrypted?
 
 ----
 
+<!-- 為甚麼有些網址只有打開公司 VPN 才能連上？ -->
+
 ### Answer
 
 ![bg fit left](./imgs/http-example-answer.png)
@@ -184,8 +204,8 @@ Which parts of an HTTPS request are encrypted?
 - request line (method, path, parameters)
 - headers
 - body
-
 - DNS? DoH, DoT
+- [HTTP Wiki](https://en.wikipedia.org/wiki/HTTP#Request_syntax)
 
 ----
 
