@@ -1,9 +1,0 @@
-services:
-  marp:
-    image: marpteam/marp-cli:v4.1.2
-    volumes:
-      - .:/home/marp/app
-    ports:
-      - "37717:37717"
-      - "8080:8080"
-    command: ["-s", "."]

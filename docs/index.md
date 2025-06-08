@@ -1,41 +1,47 @@
----
-marp: true
-class: invert
-paginate: true
----
-# Containerization and Network Engineering
+# Introduction to Network Engineering
 
 Phate
 
 ----
 
+## Concept from
+
 - [alex/what-happens-when](https://github.com/alex/what-happens-when)
 - [vasanthk/how-web-works](https://github.com/vasanthk/how-web-works)
-- Network Engineering
-- Containerization
 
-----
+---
 
 ## Network Engineering
 
 ----
 
-![bg fit](./imgs/i_can_handle_no_connection.jpg)
-
-----
-<!-- 網路要處理的就是把封包轉交的問題 source to destination -->
-<!-- 要有概念資料送出主機後被另一台主機接收中間會發生甚麼事，對於應用端的開發雖然不需要知道每一層的細節，但是除錯時會有方向 -->
-
-![bg fit](./imgs/internet_protocol_ip_address_diagram.png)
+![](./imgs/i_can_handle_no_connection.jpg)
 
 ----
 
-<!-- ISO OSI 7 layers model 較早提出但過於太繁瑣，一般比較會用 TCP/IP model 定義來處理問題 -->
-<!-- PTT 早期使用沒加密的 telnet ，目前已經改用 Websocket 和 SSH  -->
-<!-- 舉例使用手機在通訊軟體聊天室中輸入字串按下送出，使用 HTTPS 協定在 presentation layer 用公鑰加密，用 DNS 查詢 IP 後加入封包，最後用 Wifi 丟給 router 。 Router 判斷封包決定收下轉到內網或是丟給下一跳的 router ，到目的地主機假設使用有線網路，走 ethernet 收下封包，用私鑰解開，展示訊息在螢幕上。-->
-<!-- https://www.imperva.com/learn/application-security/osi-model/ -->
+### What is Network Engineering?
+
+![](./imgs/internet_protocol_ip_address_diagram.png)
+
+Note:
+網路要處理的就是如何把封包轉交
+source to destination
+要知道資料送出後被目的端主機接收中間會發生甚麼事，對於應用開發雖然不需要知道每一層的細節，但是除錯時會有概念
+
+----
 
 ### OSI or TCP/IP Model
+
+![](./imgs/OSI-vs.-TCPIP-models.jpg)
+
+Note:
+ISO OSI 7 layers model 較早提出但過於太繁瑣，一般比較會用 TCP/IP model 定義來處理問題
+
+HTTP/3 中 Google 提出的 QUIC 協定使用 UDP 取代 TCP 。
+
+舉例使用手機在通訊軟體聊天室中輸入字串按下送出，使用 HTTPS 協定在 presentation layer 用公鑰加密，用 DNS 查詢 IP 後加入封包，最後用 Wifi 丟給 router 。 Router 判斷封包決定收下轉到內網或是丟給下一跳的 router ，到目的地主機假設使用有線網路，走 ethernet 收下封包，用私鑰解開，展示訊息在螢幕上。
+
+----
 
 - Presentation or Session layer
   - SSL, TLS (HTTPS)
@@ -48,31 +54,30 @@ Phate
 - Physical layer
   - Cables, Hubs
 
-![bg fit left](./imgs/OSI-vs.-TCPIP-models.jpg)
+Note:
+PTT 早期使用沒加密的 telnet ，目前已經改用 Websocket 和 SSH
+https://www.imperva.com/learn/application-security/osi-model/
 
 ----
 
-<!-- 「拓樸」是指網路中各節點（設備）之間的連線方式，而不是特定的實體環境。 -->
-<!-- Ring 環狀拓樸例如， EXO Labs 利用 thunderbolt 把 mac mini 串聯叢集，thunderbolt 是 Intel 開發的 P2P 連線標準，所以機器之間是透過多個埠串聯成一圈。 -->
-<!-- Mesh 像如果大坪數房間，會使用多個 Wifi AP 來確保信號覆蓋提高可用性。 -->
-<!-- Star 星狀拓樸較常見，舉例來說我們開發一個應用服務容器會接上 DB 容器存資料，同時也會另外接上 Redis 容器快取。 -->
-<!-- 當要設計一個系統時，了解資料會怎麼傳遞很重要。像環狀拓樸，只要單一段連線頻寬低效就會影響整體的效能。星狀拓樸可能遇到程式有 bug 單點故障整個服務就掛掉，那要如何設計備援機制可以橫向擴充 -->
-
-### Network topology
+### Network Topology
 
 ![bg fit left](./imgs/network-topology.png)
 
-----
+Note:
+「拓樸」是指網路中各節點（設備）之間的連線方式，而不是特定的實體環境。
+Ring 環狀拓樸例如， EXO Labs 利用 thunderbolt 把 mac mini 串聯叢集，thunderbolt 是 Intel 開發的 P2P 連線標準，所以機器之間是透過多個埠串聯成一圈。
+Mesh 像如果大坪數房間，會使用多個 Wifi AP 來確保信號覆蓋提高可用性。
+Star 星狀拓樸較常見，舉例來說我們開發一個應用服務容器會接上 DB 容器存資料，同時也會另外接上 Redis 容器快取。
+當要設計一個系統時，了解資料會怎麼傳遞很重要。像環狀拓樸，只要單一段連線頻寬低效就會影響整體的效能。星狀拓樸可能遇到程式有 bug 單點故障整個服務就掛掉，那要如何設計備援機制可以橫向擴充
 
-<!-- 接著要介紹一些平常會用到的除錯工具，當服務連不上的時候會先檢查連線能力，再判斷服務有沒有正常運作 -->
-<!-- Wireshark 是非常成熟的封包嗅探工具 -->
-<!-- Ping 能提供的資訊較少，而且 icmp 協定以前有被用做攻擊，有時候可能會被管理員封鎖。 -->
+---
 
 ### Debugging
 
-- [Wireshark](https://www.wireshark.org/)
+----
 
-- Ping [Pong]
+#### Ping [Pong]
 
 ```shell
 $ ping -c 4 google.com
@@ -87,12 +92,13 @@ PING google.com (142.250.66.78) 56(84) bytes of data.
 rtt min/avg/max/mdev = 9.399/11.529/12.724/1.304 ms
 ```
 
+Note:
+ICMP 主要用來做網管的協定，像是 ping 和 traceroute 都是使用 ICMP 協定來傳送封包。
+PING 的問題是能提供的資訊有限制，而且有時候會被防火牆阻擋。
+
 ----
 
-- Traceroute
-
-<!-- 用來追蹤資料封包從本機到目標主機所經過路由節點的工具，會顯示每一跳的 IP 位址和延遲時間。 -->
-<!-- 下圖可以看到左邊一排數字代表每一跳的 hostname 和 IP 與延遲時間 -->
+#### Traceroute
 
 ```shell
 $ traceroute google.com
@@ -113,18 +119,9 @@ traceroute to google.com (142.250.66.78), 30 hops max, 60 byte packets
 14  hkg12s27-in-f14.1e100.net (142.250.66.78)  27.444 ms 192.178.106.166 (192.178.106.166)  35.437 ms 209.85.243.197 (209.85.243.197)  12.452 ms
 ```
 
-- Real-world Examples
-
 ----
 
-<!-- LOOPBACK Interface 主要用來測試系統內部服務或是開發用途，不會連接實體網路傳出封包。 -->
-<!-- ethernet 介面，最常見就是乙太網路接頭 RJ45 (水晶頭)，其他可能還有光纖、同軸電纜 cable 等。機器上有多張網卡的話也會在這裡列出，有些大型伺服器或是做高頻交易會有多個備援線路 -->
-<!-- IP 會由 DHCP 或是 Static IP 指派。往下可以看到 172.27.43.151/20 是路由器分配的 IP 地址 /20 是子網路遮罩 subnet mask ，這是 CIDR 格式表示法。 -->
-<!-- IPv4 總共有 32 bits ， /20 代表前 20 bits 是網路位址，後 12 bits 是主機位址。這樣的話可以有 2^12 = 4096 - 2 = 4094 個主機。 -->
-<!-- 這邊的 -2 是因為有兩個特殊的 IP 地址，分別是default gateway 和 broadcast address 。 -->
-<!-- 實際例子，如何設定家裡新買的 Wifi AP -->
-
-- ip address
+#### IP Address
 
 ```shell
 $ ip addr
@@ -147,24 +144,24 @@ default via 172.27.32.1 dev eth0 proto kernel
 172.27.32.0/20 dev eth0 proto kernel scope link src 172.27.43.151
 ```
 
+- [Wireshark](https://www.wireshark.org/)
+
 ----
 
-<!-- 假如有兩張網卡的話要怎麼指定？ -->
-
-- server bind address
+#### server bind address
 
 ```shell
 Usage: uvicorn [OPTIONS] APP
 
 Options:
-  --host TEXT                     Bind socket to this host.  [default: 127.0.0.1]
+  --host TEXT    Bind socket to this host. [default: 127.0.0.1]
 ```
 
 Why is it always 0.0.0.0?
 
-----
+---
 
-#### HTTP Debugging
+### HTTP Debugging
 
 - Status codes
   - 1xx: hold on
@@ -172,6 +169,8 @@ Why is it always 0.0.0.0?
   - 3xx: go away
   - 4xx: you fucked up
   - 5xx: I fucked up
+
+----
 
 - cURL
 
@@ -181,11 +180,10 @@ HTTP/2 200
 ```
 
 - [HTTP Cats](https://http.cat/), [HTTP Status Dogs](https://http.dog/)
-- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status), [人人都需要一個 HTTP proxy 來 debug](https://blog.huli.tw/2025/04/23/everyone-need-a-http-proxy-to-debug/), [mitmproxy](https://mitmproxy.org/)
+- [MDN Web Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status)
+- [人人都需要一個 HTTP proxy 來 debug](https://blog.huli.tw/2025/04/23/everyone-need-a-http-proxy-to-debug/), [mitmproxy](https://mitmproxy.org/)
 
 ----
-
-<!-- 如果被問到密碼放 Header 會不會不安全怎麼回答？ -->
 
 ### Question
 
@@ -194,8 +192,6 @@ Which parts of an HTTPS request are encrypted?
 ![bg fit left](./imgs/http-example.png)
 
 ----
-
-<!-- 為甚麼有些網址只有打開公司 VPN 才能連上？ -->
 
 ### Answer
 
@@ -209,7 +205,7 @@ Which parts of an HTTPS request are encrypted?
 
 ----
 
-### Some References for Network Debugging
+### Some References
 
 - [How to Become a Network Engineer in 2025!](https://youtu.be/0akMyLijNVg)
 - [什麼是 OSI 模型？](https://www.cloudflare.com/zh-tw/learning/ddos/glossary/open-systems-interconnection-model-osi/)
@@ -217,20 +213,12 @@ Which parts of an HTTPS request are encrypted?
 - [什麼是網際網路通訊協定？](https://www.cloudflare.com/zh-tw/learning/network-layer/internet-protocol/)
 - [企業資料通訊Week4 (3) | HTTP message](https://ithelp.ithome.com.tw/articles/10282071)
 
-----
+---
 
 ## Containerization
 
-----
-
-- What is containerization?
-
---> OpenVZ 2005 --> Process Container 2006 --> LXC 2008 --> Docker 2013 --> OCI 2015 -->
-
-----
-<!-- https://learn.microsoft.com/zh-tw/dotnet/architecture/microservices/container-docker-introduction/docker-defined -->
-
-![bg fit](./imgs/container.png)
+- OpenVZ 2005 --> Process Container 2006
+- LXC 2008 --> Docker 2013 --> K8S 2014 --> OCI 2015
 
 ----
 
@@ -238,6 +226,22 @@ Which parts of an HTTPS request are encrypted?
 
 ----
 
-## Live Demo
+![bg fit](./imgs/container.png)
 
 ----
+
+- [为什么程序员都应该学用容器技术](https://youtu.be/ytOW5t-iYP8)
+
+> 覺得變麻煩的人，純粹只是以前跳過很多應該做好的本職工作
+
+---
+
+## Live Demo
+
+---
+
+## Afterword
+
+- [reveal.js](https://revealjs.com/), [GitHub repo](https://github.com/hakimel/reveal.js)
+- [Plugins, Tools and Hardware](https://github.com/hakimel/reveal.js/wiki/Plugins,-Tools-and-Hardware)
+- [Reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins/)

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <title>Network Engineering</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./reveal.js-5.2.1/dist/reveal.css">
+  <link rel="stylesheet" href="./reveal.js-5.2.1/dist/theme/night.css" id="theme">
+  <link rel="stylesheet" href="./reveal.js-5.2.1/plugin/highlight/zenburn.css">
+  <!-- Chalkboard 相關 CSS -->
+  <link rel="stylesheet" href="./reveal.js-plugins/chalkboard/style.css">
+  <link rel="stylesheet" href="./reveal.js-plugins/customcontrols/style.css">
+  <!-- Font Awesome for Chalkboard -->
+  <link rel="stylesheet" href="./font-awesome-6.4.0.all.min.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section data-markdown="index.md"
+                data-separator="^---$"
+                data-separator-vertical="^----$"
+                data-separator-notes="^Note:"
+                data-charset="utf-8">
+      </section>
+    </div>
+  </div>
+  <script src="./reveal.js-5.2.1/dist/reveal.js"></script>
+  <script src="./reveal.js-5.2.1/plugin/markdown/markdown.js"></script>
+  <script src="./reveal.js-5.2.1/plugin/highlight/highlight.js"></script>
+  <script src="./reveal.js-5.2.1/plugin/notes/notes.js"></script>
+  <!-- Chalkboard 相關 JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+  <script src="./reveal.js-plugins/customcontrols/plugin.js"></script>
+  <script src="./reveal.js-plugins/chalkboard/plugin.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      jumpToSlide: true,
+      navigationMode: 'default',
+      customcontrols: {
+        controls: [
+          { icon: '<i class="fa fa-pen-square"></i>', title: 'Toggle chalkboard (B)', action: 'RevealChalkboard.toggleChalkboard();' },
+          { icon: '<i class="fa fa-pen"></i>', title: 'Toggle notes canvas (C)', action: 'RevealChalkboard.toggleNotesCanvas();' }
+        ]
+      },
+      chalkboard: {
+        // 可依需求自訂，預設即可
+      },
+      plugins: [ RevealMarkdown, RevealHighlight, RevealNotes, RevealChalkboard, RevealCustomControls ]
+    });
+  </script>
+</body>
+</html>
