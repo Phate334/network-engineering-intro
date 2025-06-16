@@ -50,13 +50,13 @@ HTTP/3 中 Google 提出的 QUIC 協定使用 UDP 取代 TCP 。
   - Router
 - Data link layer
   - Ethernet, PPP
-  - Switch(or network layer?)
+  - Switch vs. Hub: [What's the difference?](https://www.facebook.com/reel/3613987085575154)
 - Physical layer
   - Cables, Hubs
 
 Note:
 PTT 早期使用沒加密的 telnet ，目前已經改用 Websocket 和 SSH
-https://www.imperva.com/learn/application-security/osi-model/
+<https://www.imperva.com/learn/application-security/osi-model/>
 
 ----
 
