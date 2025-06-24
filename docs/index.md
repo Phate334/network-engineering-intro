@@ -253,3 +253,4 @@ Which parts of an HTTPS request are encrypted?
 - [reveal.js](https://revealjs.com/), [GitHub repo](https://github.com/hakimel/reveal.js)
 - [Plugins, Tools and Hardware](https://github.com/hakimel/reveal.js/wiki/Plugins,-Tools-and-Hardware)
 - [Reveal.js-plugins](https://github.com/rajgoel/reveal.js-plugins/)
+- 版控、 AI IDE 協助、直接用瀏覽器讀取
