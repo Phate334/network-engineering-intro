@@ -148,6 +148,12 @@ default via 172.27.32.1 dev eth0 proto kernel
 
 - [Wireshark](https://www.wireshark.org/)
 
+Note:
+lo 這個 LOOPBACK 介面原本是用來檢查系統關於網路功能是否正常，現在比較常被用來本地測試網路應用程式。封包在轉送到這個介面後就會被送回給應用層，而不會往下傳送。
+可以想這個介面定義在哪一層?
+eth0 是 ethernet 介面，上面這些標記 <BROADCAST,MULTICAST,UP,LOWER_UP> 代表特定的功能有正常運作。 IP 可能是靜態設定或是透過 DHCP 取得的。
+例如之前 TWCC 請我們除厝有遇到 VM 要換網段的狀況，或是 server 有多張網卡，都可能會需要針對網路介面或 route table 做調整。
+
 ----
 
 #### server bind address
