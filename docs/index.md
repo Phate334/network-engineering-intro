@@ -119,6 +119,8 @@ traceroute to google.com (142.250.66.78), 30 hops max, 60 byte packets
 14  hkg12s27-in-f14.1e100.net (142.250.66.78)  27.444 ms 192.178.106.166 (192.178.106.166)  35.437 ms 209.85.243.197 (209.85.243.197)  12.452 ms
 ```
 
+- [台灣海纜動態地圖](https://smc.peering.tw/), [liheng_yu](https://www.threads.com/@liheng_yu/post/DLKOzp7piwJ)
+
 ----
 
 #### IP Address
